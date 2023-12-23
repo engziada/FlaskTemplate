@@ -1,0 +1,13 @@
+<!-- templates/dashboard.html -->
+{% extends 'master.html' %}
+
+{% block title %}Dashboard | My App{% endblock %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <p>Welcome, admin!</p>
+
+    <!-- Display dashboard statistics -->
+    <p>Total registered users: {{ total_users }}</p>
+    <p>Users currently logged in: {{ logged_in_users }}</p>
+{% endblock %}

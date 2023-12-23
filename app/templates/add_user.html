@@ -1,0 +1,33 @@
+<!-- templates/add_user.html -->
+{% extends 'master.html' %}
+
+{% block title %}Add User | My App{% endblock %}
+
+{% block content %}
+    <h1>Add New User</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username.label(class="form-control-label") }}
+            {{ form.username(class="form-control") }}
+            {% for error in form.username.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label(class="form-control-label") }}
+            {{ form.password(class="form-control") }}
+            {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.rank.label(class="form-control-label") }}
+            {{ form.rank(class="form-control") }}
+            {% for error in form.rank.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+{% endblock %}

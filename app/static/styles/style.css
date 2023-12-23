@@ -1,0 +1,27 @@
+/* Styles for the "danger" flash message */
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    animation: fadeOut 10s forwards;
+    /* Fade out after 5 seconds */
+}
+
+.alert-success {
+    color: #1c7227;
+    background-color: #d7f8d9;
+    border-color: #caf5c6;
+    animation: fadeOut 10s forwards;
+    /* Fade out after 5 seconds */
+}
+
+/* Keyframes animation for fading out */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

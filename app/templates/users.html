@@ -1,0 +1,36 @@
+<!-- templates/users.html -->
+{% extends 'master.html' %}
+
+{% block title %}Users | My App{% endblock %}
+
+{% block content %}
+    <h1>User Management</h1>
+    <p>Welcome, admin!</p>
+
+    <!-- User grid -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    <!-- Add the links to edit and delete users -->
+                    <a href="{{ url_for('auth_views.edit_user', user_id=user.id) }}">Edit</a> |
+                    <a href="{{ url_for('auth_views.delete_user', user_id=user.id) }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add new user link -->
+    <a href="{{ url_for('auth_views.add_user') }}" class="btn btn-primary">Add New User</a>
+{% endblock %}
