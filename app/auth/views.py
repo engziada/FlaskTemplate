@@ -32,31 +32,6 @@ def login():
     return render_template('login.html', form=form)
 
 
-# Add user route
-@auth_views.route('/add_user', methods=['GET', 'POST'])
-@login_required
-def add_user():
-    if not current_user.is_admin():
-        flash('Error: You do not have permission to access this page.', 'danger')
-        return redirect(url_for('main_views.home'))
-    form = AddUserForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        rank = form.rank.data  # Get the value of 'rank' from the form
-        existing_user = User.query.filter_by(username=username).first()
-        if existing_user:
-            flash('Error: Username already exists.', 'danger')
-            return redirect(url_for('auth_views.add_user'))
-        else:
-            new_user = User(username=username, rank=rank)
-            new_user.set_password(password)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Done: New user added successfully!', 'success')
-            return redirect(url_for('auth_views.users'))
-    return render_template('add_user.html', form=form)
-
 
 @auth_views.route('/logout')
 @login_required
@@ -69,6 +44,40 @@ def logout():
 '''
 Admin routes
 '''
+
+# Add user route
+@auth_views.route('/add_user', methods=['GET', 'POST'])
+@login_required
+def add_user():
+    if not current_user.is_admin():
+        flash('Error: You do not have permission to access this page.', 'danger')
+        return redirect(url_for('main_views.home'))
+    form = AddUserForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        email= form.email.data
+        password = form.password.data
+        confirm_password = form.confirm_password.data
+        rank = form.rank.data  # Get the value of 'rank' from the form
+        
+        existing_user = User.query.filter_by(username=username).first()
+        existing_email = User.query.filter_by(email=email).first()
+        
+        if existing_user:
+            flash('Error: Username already exists.', 'danger')
+            return redirect(url_for('auth_views.add_user'))
+        elif existing_email:
+            flash('Error: Email already exists.', 'danger')
+            return redirect(url_for('auth_views.add_user'))
+        else:
+            new_user = User(username=username, rank=rank, email=email)
+            new_user.set_password(password)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Done: New user added successfully!', 'success')
+            return redirect(url_for('auth_views.users'))
+    return render_template('add_user.html', form=form)
+
 
 # Users route
 @auth_views.route('/users')

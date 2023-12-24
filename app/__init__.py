@@ -7,6 +7,7 @@ from urllib.parse import quote
 from os import environ
 from flask_bootstrap import Bootstrap
 from flask_wtf import CSRFProtect
+from flask_migrate import Migrate
 
 # Load environment variables from .env file (only during development)
 load_dotenv()
@@ -27,6 +28,9 @@ bootstrap = Bootstrap(app)
 
 # Flask-WTF requires this line
 csrf = CSRFProtect(app)
+
+# Initialize Flask-Migrate
+migrate = Migrate(app, db)
 
 # Initialize login manager
 login_manager = LoginManager(app)

@@ -8,6 +8,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+    email=db.Column(db.String(120), unique=True, nullable=True)
     # Add the 'rank' attribute with a default value of 3 (customer)
     rank = db.Column(db.Integer, default=3)
 
@@ -23,7 +24,7 @@ class User(db.Model, UserMixin):
         return self.is_authenticated and self.rank == 1
     
     def __repr__(self):
-        return f"{self.username}, {self.email}, {self.password}, {self.id}"
+        return f"{self.username}, {self.email}, {self.password_hash}, {self.id}"
 
 ####################################################################################################
 # Create the default admin user (you can modify this data as needed)
